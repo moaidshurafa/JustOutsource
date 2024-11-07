@@ -1,12 +1,17 @@
 ﻿using JustOutsource.Data;
 using JustOutsource.Models;
+using JustOutsource.Utility;
 using JustOutsource.VM;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace JustOutsource.Controllers
 {
+   
+    //[Authorize(Roles = "Job,Freelancer")]
+
     public class JobController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -18,6 +23,11 @@ namespace JustOutsource.Controllers
         {
             var jobs = _db.Jobs.Include(f => f.Category).ToList();
             return View(jobs);
+        }
+        public IActionResult FindFreelancer()
+        {
+            var freelancers = _db.Freelancers.Include(f => f.Category).ToList();
+            return View(freelancers);
         }
         public IActionResult Create()
         {
@@ -32,6 +42,7 @@ namespace JustOutsource.Controllers
             };
             return View(jobVM);
         }
+
         [HttpPost]
         public IActionResult Create(JobVM obj)
         {

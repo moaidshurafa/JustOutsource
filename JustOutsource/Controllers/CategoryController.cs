@@ -1,11 +1,15 @@
 ﻿using JustOutsource.Data;
 using JustOutsource.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JustOutsource.Controllers
 {
+    //[Authorize(Roles = "Admin")]
+
     public class CategoryController : Controller
     {
+
         private readonly ApplicationDbContext _db;
         public CategoryController(ApplicationDbContext db)
         {
