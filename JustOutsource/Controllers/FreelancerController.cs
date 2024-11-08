@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace JustOutsource.Controllers
 {
 
-    //[Authorize(Roles = "Job,Admin")]
+    [Authorize(Roles = "Freelancer,Admin")]
 
     public class FreelancerController : Controller
     {

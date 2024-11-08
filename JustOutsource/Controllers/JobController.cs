@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace JustOutsource.Controllers
 {
    
-    //[Authorize(Roles = "Job,Freelancer")]
+    [Authorize(Roles = "Job,Admin")]
 
     public class JobController : Controller
     {
@@ -23,6 +23,21 @@ namespace JustOutsource.Controllers
         {
             var jobs = _db.Jobs.Include(f => f.Category).ToList();
             return View(jobs);
+        }
+        public IActionResult Details(int id)
+        {
+            var freelancer = _db.Freelancers.Include(f => f.Category).FirstOrDefault(f => f.Id == id);
+            if (freelancer == null)
+            {
+                return NotFound();
+            }
+
+            var freelancerVM = new FreelancerVM
+            {
+                Freelancer = freelancer
+            };
+
+            return View(freelancerVM);
         }
         public IActionResult FindFreelancer()
         {
