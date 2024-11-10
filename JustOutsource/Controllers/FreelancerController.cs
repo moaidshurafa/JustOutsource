@@ -24,6 +24,21 @@ namespace JustOutsource.Controllers
             var freelancers = _db.Freelancers.Include(f => f.Category).ToList();
             return View(freelancers);
         }
+        public IActionResult Details(int id)
+        {
+            var job = _db.Jobs.Include(f => f.Category).FirstOrDefault(f => f.Id == id);
+            if (job == null)
+            {
+                return NotFound();
+            }
+
+            var jobVM = new JobVM
+            {
+                Job = job,
+            };
+
+            return View(jobVM);
+        }
         public IActionResult FindJob()
         {
             var jobs = _db.Jobs.Include(j => j.Category).ToList();

@@ -23,9 +23,9 @@
                 <th>
                     Skills
                 </th>
-                <th>
+                @* <th>
                     Description
-                </th>
+                </th> *@
                 <th>
                     Category
                 </th>
@@ -38,8 +38,8 @@
                 <tr>
                     <td>@c.Name</td>
                     <td>@c.Skills</td>
-                    <td>@c.ProfileDescription</td>
-                    <td>@c.Category.CategoryName</td>
+@*                     <td>@c.ProfileDescription</td>
+ *@                    <td>@c.Category.CategoryName</td>
                     <td>
                         <a asp-action="Details" asp-route-id="@c.Id" class="btn btn-primary">
                             <i class="bi bi-pencil-square"></i> Details
