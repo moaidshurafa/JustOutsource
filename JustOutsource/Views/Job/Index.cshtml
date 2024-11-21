@@ -1,4 +1,4 @@
-﻿@model List<Job>
+﻿@* @model List<Job>
 
 <div class="container">
     <div class="row pt-4 pb-3">
@@ -22,7 +22,7 @@
                 </th>
                 @* <th>
                     Description
-                </th> *@
+                </th> 
                 <th>
                     Required Skills
                 </th>
@@ -37,7 +37,7 @@
             {
                 <tr>
                     <td>@c.Title</td>
-                    @* <td>@c.Description</td> *@
+                    <td>@c.Description</td> 
                     <td>@c.RequiredSkills</td>
                     <td>@c.Category.CategoryName</td>
 
@@ -55,3 +55,4 @@
     </table>
 </div>
 
+ *@

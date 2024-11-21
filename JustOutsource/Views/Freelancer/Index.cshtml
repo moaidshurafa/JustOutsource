@@ -1,4 +1,4 @@
-﻿@model List<Freelancer>
+﻿@* @model List<Freelancer>
 
 <div class="container">
     <div class="row pt-4 pb-3">
@@ -25,7 +25,7 @@
                 </th>
                 @* <th>
                     Description
-                </th> *@
+                </th> 
                 <th>
                     Category
                 </th>
@@ -38,7 +38,7 @@
                 <tr>
                     <td>@c.Name</td>
                     <td>@c.Skills</td>
-                    @* <td>@c.ProfileDescription</td> *@
+                    @* <td>@c.ProfileDescription</td> 
                     <td>@c.Category.CategoryName</td>
 
                     <td>
@@ -55,3 +55,4 @@
     </table>
 </div>
 
+ *@
