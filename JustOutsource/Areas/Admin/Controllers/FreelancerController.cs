@@ -17,13 +17,15 @@ namespace JustOutsource.Areas.Admin.Controllers
     {
 
         private readonly IUnitOfWork _unitOfWork;
-        public FreelancerController(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public FreelancerController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
-            List<Freelancer> freelancers = _unitOfWork.Freelancer.GetAll().ToList();
+            List<Freelancer> freelancers = _unitOfWork.Freelancer.GetAll(includeProperties:"Category").ToList();
             
             return View(freelancers);
         }
@@ -57,7 +59,40 @@ namespace JustOutsource.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Freelancer.Add(freelancerVM.Freelancer);
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if(file !=  null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string freelancerPath = Path.Combine(wwwRootPath, @"Images\Freelancer");
+
+                    if (!string.IsNullOrEmpty(freelancerVM.Freelancer.ImageUrl))
+                    {
+                        var oldImagePath =
+                            Path.Combine(wwwRootPath, freelancerVM.Freelancer.ImageUrl.TrimStart('\\'));
+
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+
+                    using (var fileStream = new FileStream(Path.Combine(freelancerPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+                    freelancerVM.Freelancer.ImageUrl = @"\Images\Freelancer\" + fileName;
+
+                }
+
+
+                if (freelancerVM.Freelancer.Id == 0)
+                {
+                    _unitOfWork.Freelancer.Add(freelancerVM.Freelancer);
+                }
+                else
+                {
+                    _unitOfWork.Freelancer.Update(freelancerVM.Freelancer);
+                }
                 _unitOfWork.Save();
                 TempData["success"] = "Freelancer created successfully";
                 return RedirectToAction("Index");

@@ -19,7 +19,19 @@ namespace JustOutsource.DataAccess.Respiratory
 
         public void Update(Freelancer obj)
         {
-            _db.Freelancers.Update(obj);
+            var objFromDb = _db.Freelancers.FirstOrDefault(u => u.Id == obj.Id);
+            if (objFromDb != null)
+            {
+
+                objFromDb.Name = obj.Name;
+                objFromDb.Skills = obj.Skills;
+                objFromDb.ProfileDescription = obj.ProfileDescription;
+                objFromDb.Category = obj.Category;
+                if (obj.ImageUrl != null)
+                {
+                    objFromDb.ImageUrl = obj.ImageUrl;
+                }
+            }
         }
     }
 }
