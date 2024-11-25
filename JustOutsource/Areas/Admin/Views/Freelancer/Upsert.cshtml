@@ -43,6 +43,11 @@
                             <span asp-validation-for="Freelancer.CategoryId" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-2 col-12">
+                            <input asp-for="Freelancer.ListPrice" class="form-control border-0 shadow" />
+                            <label asp-for="Freelancer.ListPrice" class="ms-2">Price</label>
+                            <span asp-validation-for="Freelancer.ListPrice" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-2 col-12">
                             <input type="file" name="file" class="form-control border-0 shadow" />
                             <label asp-for="Freelancer.ImageUrl" class="ms-2">ImageUrl</label>
                         </div>

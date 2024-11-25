@@ -27,6 +27,7 @@ namespace JustOutsource.DataAccess.Respiratory
                 objFromDb.Skills = obj.Skills;
                 objFromDb.ProfileDescription = obj.ProfileDescription;
                 objFromDb.Category = obj.Category;
+                objFromDb.ListPrice = obj.ListPrice;
                 if (obj.ImageUrl != null)
                 {
                     objFromDb.ImageUrl = obj.ImageUrl;

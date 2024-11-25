@@ -1,3 +1,4 @@
+using JustOutsource.DataAccess.Respiratory.IRespiratory;
 using JustOutsource.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,15 +9,22 @@ namespace JustOutsource.Areas.Customer.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IUnitOfWork _unitOfWork;
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
         {
             _logger = logger;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Freelancer> freelancerList = _unitOfWork.Freelancer.GetAll(includeProperties:"Category");
+            return View(freelancerList);
+        }
+        public IActionResult Details(int freelancerId)
+        {
+            Freelancer freelancer = _unitOfWork.Freelancer.Get(u=>u.Id== freelancerId, includeProperties: "Category");
+            return View(freelancer);
         }
 
         public IActionResult Privacy()

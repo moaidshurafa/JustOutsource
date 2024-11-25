@@ -23,6 +23,15 @@ namespace JustOutsource.Models
         [ValidateNever]
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
+        [Required]
+        [Display(Name = "From ")]
+        [Range(0, 10000)]
+        public double ListPrice { get; set; }
+
+        //[Required]
+        //[Display(Name = "From ")]
+        //[Range(0, 10000)]
+        //public double Price { get; set; }
         [ValidateNever]
         public string ImageUrl { get; set; }
 
